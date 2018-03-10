@@ -1,15 +1,16 @@
-import React from 'react';
-import {StyleSheet, Text, View, Image} from 'react-native';
+import React , { Component } from 'react';
+import {StyleSheet, View, Image} from 'react-native';
 
 import SwipeCards from 'react-native-swipe-cards';
-
-class Card extends React.Component {
+import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text } from 'native-base';
+class Card extends Component {
   constructor(props) {
     super(props);
   }
 
   render() {
     return (
+      
       <View style={styles.card}>
         <Image style={styles.thumbnail} source={{uri: this.props.image}} />
         <Text style={styles.text}>This is card {this.props.name}</Text>
@@ -61,7 +62,7 @@ export default class App extends React.Component {
   }
 
   handleYup (card) {
-    console.log("yup")
+    console.log("Yes")
   }
 
   handleNope (card) {
@@ -91,6 +92,19 @@ export default class App extends React.Component {
 
   render() {
     return (
+      <Container>
+      <Header>
+        <Left>
+          <Button transparent>
+            <Icon name='menu' />
+          </Button>
+        </Left>
+        <Body>
+          <Title>Oquotes</Title>
+        </Body>
+        <Right />
+      </Header>
+      <Content>
       <SwipeCards
         cards={this.state.cards}
         loop={false}
@@ -104,6 +118,8 @@ export default class App extends React.Component {
         handleNope={this.handleNope}
         cardRemoved={this.cardRemoved.bind(this)}
       />
+            </Content>
+    </Container>
     )
   }
 }
