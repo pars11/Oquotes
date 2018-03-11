@@ -1,8 +1,14 @@
 import React , { Component } from 'react';
-import {StyleSheet, View, Image} from 'react-native';
+import {StyleSheet, View,Dimensions,Image} from 'react-native';
 
 import SwipeCards from 'react-native-swipe-cards';
 import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text } from 'native-base';
+
+export const MARGINX = 0.06
+export const MARGINY = 0.2
+
+const { width, height } = Dimensions.get('window');
+
 class Card extends Component {
   constructor(props) {
     super(props);
@@ -13,43 +19,33 @@ class Card extends Component {
       
       <View style={styles.card}>
         <Image style={styles.thumbnail} source={{uri: this.props.image}} />
-        <Text style={styles.text}>This is card {this.props.name}</Text>
+        <Text style={styles.text}>Author : {this.props.author}</Text>
       </View>
     )
   }
 }
 
-class NoMoreCards extends React.Component {
+class NoMoreCards extends Component {
   constructor(props) {
     super(props);
   }
 
   render() {
     return (
-      <View style={styles.noMoreCards}>
-        <Text>No more cards</Text>
+      <View>
+        <Text style={styles.noMoreCardsText}>No more quote</Text>
       </View>
     )
   }
 }
 
 const cards = [
-  {name: '1', image: 'https://media.giphy.com/media/GfXFVHUzjlbOg/giphy.gif'},
-  {name: '2', image: 'https://media.giphy.com/media/irTuv1L1T34TC/giphy.gif'},
-  {name: '3', image: 'https://media.giphy.com/media/LkLL0HJerdXMI/giphy.gif'},
-  {name: '4', image: 'https://media.giphy.com/media/fFBmUMzFL5zRS/giphy.gif'},
-  {name: '5', image: 'https://media.giphy.com/media/oDLDbBgf0dkis/giphy.gif'},
-  {name: '6', image: 'https://media.giphy.com/media/7r4g8V2UkBUcw/giphy.gif'},
-  {name: '7', image: 'https://media.giphy.com/media/K6Q7ZCdLy8pCE/giphy.gif'},
-  {name: '8', image: 'https://media.giphy.com/media/hEwST9KM0UGti/giphy.gif'},
-  {name: '9', image: 'https://media.giphy.com/media/3oEduJbDtIuA2VrtS0/giphy.gif'},
-]
-
-const cards2 = [
-  {name: '10', image: 'https://media.giphy.com/media/12b3E4U9aSndxC/giphy.gif'},
-  {name: '11', image: 'https://media4.giphy.com/media/6csVEPEmHWhWg/200.gif'},
-  {name: '12', image: 'https://media4.giphy.com/media/AA69fOAMCPa4o/200.gif'},
-  {name: '13', image: 'https://media.giphy.com/media/OVHFny0I7njuU/giphy.gif'},
+  {id: '1', author: 'Sherlock Holmes', image:'https://i.hizliresim.com/Z9R9pz.png'},
+  {id: '2', author:'Steve Jobs', image: 'https://i.hizliresim.com/3EJEkA.jpg'},
+  {id: '3', author:'Aristotle', image: 'https://i.hizliresim.com/2J4JAA.jpg'},
+  {id: '4', author:'Mustafa Kemal Atatürk', image: 'https://i.hizliresim.com/Md4DW6.png'},
+  {id: '5', author:'Wayne Mustaffa', image: 'https://i.hizliresim.com/vj7P4R.jpg'},
+  {id: '6', author:'Unknown', image: 'https://i.hizliresim.com/EPMDyZ.jpg'}
 ]
 
 export default class App extends React.Component {
@@ -66,29 +62,13 @@ export default class App extends React.Component {
   }
 
   handleNope (card) {
-    console.log("nope")
+    console.log("Nope")
   }
 
   cardRemoved (index) {
-    console.log(`The index is ${index}`);
-
-    let CARD_REFRESH_LIMIT = 3
-
-    if (this.state.cards.length - index <= CARD_REFRESH_LIMIT + 1) {
-      console.log(`There are only ${this.state.cards.length - index - 1} cards left.`);
-
-      if (!this.state.outOfCards) {
-        console.log(`Adding ${cards2.length} more cards`)
-
-        this.setState({
-          cards: this.state.cards.concat(cards2),
-          outOfCards: true
-        })
+    console.log(`The index is ${index} card removed`);
       }
 
-    }
-
-  }
 
   render() {
     return (
@@ -108,11 +88,10 @@ export default class App extends React.Component {
       <SwipeCards
         cards={this.state.cards}
         loop={false}
-
         renderCard={(cardData) => <Card {...cardData} />}
         renderNoMoreCards={() => <NoMoreCards />}
-        showYup={true}
-        showNope={true}
+        showYup={false}
+        showNope={false}
 
         handleYup={this.handleYup}
         handleNope={this.handleNope}
@@ -133,19 +112,21 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderWidth: 1,
     elevation: 1,
+    margin: 30
   },
   thumbnail: {
     width: 300,
     height: 300,
+    width: width * (1.0 - MARGINX * 2),
+    height: height * (1.0 - MARGINY * 2.1),
   },
   text: {
     fontSize: 20,
     paddingTop: 10,
     paddingBottom: 10
   },
-  noMoreCards: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+  noMoreCardsText: {
+    fontSize: 22,
+    margin: 30
   }
 })
