@@ -10,7 +10,7 @@ import { Icon, Button, Container, Header, Content, Left } from 'native-base';
 
 import CustomHeader from './CustomHeader';
 import Card from "./Card";
-import NoMoreCard from "./NoMoreCard";
+import NoMoreCards from "./NoMoreCards";
 
 const cards = [
     {id: '1', author: 'Sherlock Holmes', image:'https://i.hizliresim.com/Z9R9pz.png'},
