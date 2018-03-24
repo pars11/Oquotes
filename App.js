@@ -39,7 +39,7 @@ const MyApp = DrawerNavigator({
     screen: LoginScreen
   },
   Signup: {
-    screen: SignupScreen
+    screen: HomeScreen
   },
   Home: {
     screen: HomeScreen
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
   },
   drawerHeader: {
     height: 200,
-    backgroundColor: 'white'
+    backgroundColor: '#455a64'
   },
   drawerImage: {
     height: 150,
