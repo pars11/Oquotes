@@ -21,6 +21,10 @@ export default class Signup extends  Component {
         Actions.pop()
     }
 
+    static navigationOptions = {
+      drawerLabel: () => null
+ }
+
 	render() {
 		return(
 			<View style={styles.container}>
