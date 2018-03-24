@@ -21,6 +21,10 @@ export default class Login extends  Component {
             Actions.signup()
         }
 
+    static navigationOptions = {
+         drawerLabel: () => null
+    }
+
 	render() {
 		return(
 			<View style={styles.container}>
