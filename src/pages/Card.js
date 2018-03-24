@@ -16,7 +16,32 @@ export default class Card extends Component {
         
         <View style={styles.card}>
           <Image style={styles.thumbnail} source={{uri: this.props.image}} />
-          <Text style={styles.text}>Author : {this.props.author}</Text>
+                  <View
+          style={{
+            height: 64,
+            padding: 8,
+            display: 'flex',
+            flexDirection: 'row'
+          }}
+        >
+          <Image
+            source={{ uri: this.props.authorphotoUrl }}
+            style={styles.avatar}
+          />
+          <View
+            style={
+              {
+                flex: 1,
+                paddingTop: 4,
+                paddingLeft: 16
+              }
+            }
+          >
+          <Text style={styles.authorName}>
+              {this.props.author}
+            </Text>
+        </View>
+        </View>
         </View>
       )
     }
@@ -43,5 +68,17 @@ export default class Card extends Component {
         fontSize: 20,
         paddingTop: 10,
         paddingBottom: 10
-      }
+      },
+      authorName: {
+        paddingTop: 5,
+        color: 'black',
+        fontSize: 18
+      },
+      avatar: {
+        width: 48,
+        height: 48,
+        borderRadius: 24,
+        borderWidth: 0.5,
+        borderColor: '#d6d7da'
+      },
     })
