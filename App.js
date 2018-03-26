@@ -39,7 +39,7 @@ const MyApp = DrawerNavigator({
     screen: LoginScreen
   },
   Signup: {
-    screen: HomeScreen
+    screen: SignupScreen
   },
   Home: {
     screen: HomeScreen
