@@ -7,6 +7,11 @@ import LoginScreen from "./src/pages/Login";
 import SignupScreen from "./src/pages/Signup";
 
 export default class App extends Component {
+
+  constructor(props){
+    super(props)
+  }
+
   render() {
 
     return (

@@ -17,10 +17,6 @@ export default class Signup extends  Component {
         super(props);
       }
 
-      goBack() {
-        Actions.pop()
-    }
-
     static navigationOptions = {
       drawerLabel: () => null
  }
