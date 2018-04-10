@@ -15,7 +15,6 @@ export default class Logo extends Component {
 			<View style={styles.container}>
 				<Image
           			source={require('../assets/images/logo.png')}/>
-          		<Text style={styles.logoText}>Oquotes</Text>	
   			</View>
 			)
 	}
