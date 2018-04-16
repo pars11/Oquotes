@@ -32,36 +32,53 @@ export default class Form extends Component {
 
   onPress = (email,password) => {
     if(this.props.type == "Login"){
+      try{
+        if(this.state.email == "" && this.state.password == "")
+        {
+          alert("Please fill all inputs")
+          return;
+        }
+        if(this.state.password.length<6)
+        {
+          alert("Please enter your password")
+          return;
+        }
+
+        else{
       firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
-        var errorCode = error.code;
         var errorMessage = error.message;
         alert(errorMessage)
-        alert(errorCode)
       });
+    }
+  }
+  catch(error){
+    var errorMessage = error.message;
+      alert(errorMessage)
+  }
   }
     else if (this.props.type == "Signup"){
       try{
+        if(this.state.email == "" && this.state.password == "")
+        {
+          alert("Please fill all inputs")
+          return;
+        }
         if(this.state.password.length<6)
         {
           alert("Please enter at least 6 characters")
           return;
         }
 
-        else if(this.state.email == "" && this.state.password == "")
-        {
-          alert("Please fill all inputs")
-          return;
-        }
+        else{
         firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
-          var errorCode = error.code;
           var errorMessage = error.message;
-
           alert(errorMessage)
-          alert(errorCode)
         });
       }
+    }
       catch(error){
-        console.log(error.toString())
+        var errorMessage = error.message;
+          alert(errorMessage)
       }
     }
   }
