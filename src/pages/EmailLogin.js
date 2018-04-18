@@ -12,29 +12,29 @@ import Form from '../common/Form';
 
 import {Actions} from 'react-native-router-flux';
 
-export default class Signup extends  Component {
-    constructor(props) {
-        super(props);
-      }
+export default class Login extends  Component {
+        constructor(props) {
+            super(props);
+          }
 
     static navigationOptions = {
-      drawerLabel: () => null
- }
+         drawerLabel: () => null
+    }
 
 	render() {
 		return(
 			<View style={styles.container}>
 				<Logo/>
-				<Form type="Signup"/>
+				<Form type="Login"/>
 				<View style={styles.signupTextCont}>
-					<Text style={styles.signupText}>Already have an account?</Text>
-					<TouchableOpacity onPress={()=> this.props.navigation.navigate('EmailLogin')}><Text style={styles.signupButton}> Sign in</Text></TouchableOpacity>
+					<Text style={styles.signupText}>Don't have an account yet?</Text>
+					<TouchableOpacity onPress={()=> this.props.navigation.navigate('Signup')}><Text style={styles.signupButton}> Signup</Text></TouchableOpacity>
 				</View>
+        <TouchableOpacity onPress={()=> this.props.navigation.navigate('LoginScreen')}><Text style={styles.signupButton}> Login Page</Text></TouchableOpacity>
 			</View>	
 			)
 	}
 }
-
 const styles = StyleSheet.create({
   container : {
     backgroundColor:'#455a64',

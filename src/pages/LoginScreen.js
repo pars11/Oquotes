@@ -25,10 +25,20 @@ export default class Login extends  Component {
 		return(
 			<View style={styles.container}>
 				<Logo/>
-				<Form type="Login"/>
 				<View style={styles.signupTextCont}>
-					<Text style={styles.signupText}>Don't have an account yet?</Text>
-					<TouchableOpacity onPress={()=> this.props.navigation.navigate('Signup')}><Text style={styles.signupButton}> Signup</Text></TouchableOpacity>
+                <TouchableOpacity style={styles.button} onPress={()=> this.props.navigation.navigate('EmailLogin')}>
+                <Text style={styles.buttonText}>Login with Email</Text>
+                </TouchableOpacity> 
+                </View>
+                <View>
+                <TouchableOpacity style={styles.button} onPress={()=> this.props.navigation.navigate('EmailLogin')}>
+                <Text style={styles.buttonText}>Login with Facebook</Text>
+                </TouchableOpacity> 
+                </View>
+                <View>
+                <TouchableOpacity style={styles.button} onPress={()=> this.props.navigation.navigate('EmailLogin')}>
+                <Text style={styles.buttonText}>Login with Twitter</Text>
+                </TouchableOpacity> 
 				</View>
 			</View>	
 			)
@@ -56,5 +66,18 @@ const styles = StyleSheet.create({
   	color:'#ffffff',
   	fontSize:16,
   	fontWeight:'500'
+  },
+  button: {
+    width:300,
+    backgroundColor:'#1c313a',
+     borderRadius: 25,
+      marginVertical: 10,
+      paddingVertical: 13
+  },
+  buttonText: {
+    fontSize:16,
+    fontWeight:'500',
+    color:'#ffffff',
+    textAlign:'center'
   }
 });

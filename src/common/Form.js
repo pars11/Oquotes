@@ -45,7 +45,10 @@ export default class Form extends Component {
         }
 
         else{
-      firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+      firebase.auth().signInWithEmailAndPassword(email, password).then(function(user) {
+        // user signed in
+        alert("Login Succesfull")
+     }).catch(function(error) {
         var errorMessage = error.message;
         alert(errorMessage)
       });
@@ -70,7 +73,9 @@ export default class Form extends Component {
         }
 
         else{
-        firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+        firebase.auth().createUserWithEmailAndPassword(email, password).then(function(user) {
+        alert("Signup Succesfull")
+        }).catch(function(error) {
           var errorMessage = error.message;
           alert(errorMessage)
         });
