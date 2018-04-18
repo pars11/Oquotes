@@ -4,14 +4,11 @@ import {
   Text,
   View,
   StatusBar ,
-  TouchableOpacity
+  TouchableOpacity,
+  TextInput
 } from 'react-native';
 
 import Logo from '../common/Logo';
-import Form from '../common/Form';
-
-import {Actions} from 'react-native-router-flux';
-
 export default class Login extends  Component {
         constructor(props) {
             super(props);
@@ -23,15 +20,45 @@ export default class Login extends  Component {
 
 	render() {
 		return(
-			<View style={styles.container}>
-				<Logo/>
-				<Form type="Login"/>
-				<View style={styles.signupTextCont}>
+      <View style={styles.container}>
+      <Logo/>
+      <TextInput style={styles.inputBox} 
+              underlineColorAndroid='rgba(0,0,0,0)' 
+              placeholder="Email"
+              placeholderTextColor = "#ffffff"
+              selectionColor="#fff"
+              keyboardType="email-address"
+              onChangeText={(email) => this.setState ({ email })}
+              onSubmitEditing={()=> this.password.focus()}
+              />
+          <TextInput style={styles.inputBox} 
+              underlineColorAndroid='rgba(0,0,0,0)' 
+              placeholder="Password"
+              secureTextEntry={true}
+              onChangeText={(password) => this.setState ({ password })}
+              placeholderTextColor = "#ffffff"
+              ref={(input) => this.password = input}
+              />  
+      <View>
+              <TouchableOpacity style={styles.button} onPress={()=> this.props.navigation.navigate('EmailLogin')}>
+              <Text style={styles.buttonText}>Login</Text>
+              </TouchableOpacity> 
+              </View>
+              <View>
+              <TouchableOpacity style={styles.button} onPress={()=> this.props.navigation.navigate('EmailLogin')}>
+              <Text style={styles.buttonText}>Login with Facebook</Text>
+              </TouchableOpacity> 
+              </View>
+              <View>
+              <TouchableOpacity style={styles.button} onPress={()=> this.props.navigation.navigate('EmailLogin')}>
+              <Text style={styles.buttonText}>Login with Twitter</Text>
+              </TouchableOpacity> 
+              </View>
+              <View style={styles.signupTextCont}>
 					<Text style={styles.signupText}>Don't have an account yet?</Text>
-					<TouchableOpacity onPress={()=> this.props.navigation.navigate('Signup')}><Text style={styles.signupButton}> Signup</Text></TouchableOpacity>
+					<TouchableOpacity onPress={()=> this.props.navigation.navigate('Signup')}><Text style={styles.signupButton}> Sign Up</Text></TouchableOpacity>
 				</View>
-        <TouchableOpacity onPress={()=> this.props.navigation.navigate('LoginScreen')}><Text style={styles.signupButton}> Login Page</Text></TouchableOpacity>
-			</View>	
+    </View>	
 			)
 	}
 }
@@ -46,7 +73,7 @@ const styles = StyleSheet.create({
   	flexGrow: 1,
     alignItems:'flex-end',
     justifyContent :'center',
-    paddingVertical:16,
+    paddingVertical:10,
     flexDirection:'row'
   },
   signupText: {
@@ -57,5 +84,27 @@ const styles = StyleSheet.create({
   	color:'#ffffff',
   	fontSize:16,
   	fontWeight:'500'
+  },
+  inputBox: {
+    width:280,
+    backgroundColor:'rgba(255, 255,255,0.2)',
+    borderRadius: 23,
+    paddingHorizontal:10,
+    fontSize:16,
+    color:'#ffffff',
+    marginVertical: 10
+  },
+  button: {
+    width:280,
+    backgroundColor:'#1c313a',
+     borderRadius: 25,
+      marginVertical: 10,
+      paddingVertical: 10
+  },
+  buttonText: {
+    fontSize:16,
+    fontWeight:'500',
+    color:'#ffffff',
+    textAlign:'center'
   }
 });

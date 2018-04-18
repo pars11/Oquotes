@@ -3,9 +3,8 @@ import {View,Text,StyleSheet,ScrollView,Image} from "react-native";
 import { Container, Content, Icon, Header, Body } from 'native-base'
 import { DrawerNavigator, StackNavigator, DrawerItems, SafeAreaView } from 'react-navigation'
 import HomeScreen from "./src/pages/HomeScreen";
-import EmailLoginScreen from "./src/pages/EmailLogin";
+import LoginScreen from "./src/pages/EmailLogin";
 import SignupScreen from "./src/pages/Signup";
-import LoginScreen from "./src/pages/LoginScreen";
 
 export default class App extends Component {
 
@@ -41,11 +40,8 @@ const CustomDrawerContentComponent = (props) => (
 const MyApp = DrawerNavigator({
 
   // For each screen that you can navigate to, create a new entry like this:
-  LoginScreen: {
+  Login: {
     screen: LoginScreen
-  },
-  EmailLogin: {
-    screen: EmailLoginScreen
   },
   Signup: {
     screen: SignupScreen
@@ -55,7 +51,7 @@ const MyApp = DrawerNavigator({
   }
 },
   {
-    initialRouteName: 'LoginScreen',
+    initialRouteName: 'Login',
     drawerPosition: 'left',
     contentComponent: CustomDrawerContentComponent,
     drawerOpenRoute: 'DrawerOpen',
