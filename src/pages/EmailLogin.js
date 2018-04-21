@@ -17,7 +17,46 @@ export default class Login extends  Component {
     static navigationOptions = {
          drawerLabel: () => null
     }
-
+    onPress = (email,password) => {
+      const userEmail = this.state.email;
+      const userPassword = this.state.password;
+    
+      try{
+        if(userEmail == "" && userPassword == "")
+        {
+          alert("Please fill all inputs")
+          return;
+        }
+        if(userPassword<6)
+        {
+          alert("Please enter at least 6 characters")
+          return;
+        }
+    
+        else{
+          fetch('http://192.168.1.105:80/Oquotes/login.php', {
+          method: 'post',
+          header:{
+            'Accept': 'application/json',
+            'Content-type': 'application/json'
+          },
+          body:JSON.stringify({
+            email: userEmail,
+            password: userPassword,
+          })
+          
+        })
+        .then((response) => response.json())
+          .then((responseJson) =>{
+            alert(responseJson);
+          })
+      }
+    }
+      catch(error){
+        var errorMessage = error;
+          alert(errorMessage)
+      }
+    }
 	render() {
 		return(
       <View style={styles.container}>
@@ -40,7 +79,7 @@ export default class Login extends  Component {
               ref={(input) => this.password = input}
               />  
       <View>
-              <TouchableOpacity style={styles.button} onPress={()=> this.props.navigation.navigate('EmailLogin')}>
+              <TouchableOpacity style={styles.button} onPress={()=> this.onPress(this.state.email,this.state.password)}>
               <Text style={styles.buttonText}>Login</Text>
               </TouchableOpacity> 
               </View>
