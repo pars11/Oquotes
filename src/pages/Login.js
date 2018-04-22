@@ -5,7 +5,8 @@ import {
   View,
   StatusBar ,
   TouchableOpacity,
-  TextInput
+  TextInput,
+  AsyncStorage
 } from 'react-native';
 import {FBLogin, FBLoginManager} from 'react-native-facebook-login';
 import Logo from '../common/Logo';
@@ -64,7 +65,9 @@ export default class Login extends  Component {
             else
           {
             responseJson.loginType =  "email"
-            _this.props.navigation.navigate('Home', { user: responseJson })
+            AsyncStorage.setItem('user', JSON.stringify(responseJson), () => {
+            });
+            _this.props.navigation.navigate('Home')
           }
            
           })
@@ -115,7 +118,9 @@ export default class Login extends  Component {
                   console.log(data);
                   _this.setState({ user : data.credentials });
                   _this.state.user.loginType = "facebook";
-                  _this.props.navigation.navigate('Home', { user: _this.state.user })
+                  AsyncStorage.setItem('user', JSON.stringify(_this.state.user), () => {
+                  });
+                  _this.props.navigation.navigate('Home')
                 }}
                 onLogout={function(){
                   console.log("Logged out.");

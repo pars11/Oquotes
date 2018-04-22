@@ -6,6 +6,7 @@ import HomeScreen from "./src/pages/HomeScreen";
 import LoginScreen from "./src/pages/Login";
 import SignupScreen from "./src/pages/Signup";
 import LogoutScreen from "./src/pages/Logout";
+import ProfileScreen from "./src/pages/Profile";
 export default class App extends Component {
 
   constructor(props){
@@ -29,7 +30,7 @@ const CustomDrawerContentComponent = (props) => (
           source={require('./src/assets/images/logo2.png')} />
     </Header>
     <Content>
-      <DrawerItems {...props} />
+    <DrawerItems {...props} />
     </Content>
   </Container>
 
@@ -46,6 +47,9 @@ const MyApp = DrawerNavigator({
   },
   Home: {
     screen: HomeScreen
+  },
+  Profile: {
+    screen: ProfileScreen
   },
   Logout: {
     screen: LogoutScreen

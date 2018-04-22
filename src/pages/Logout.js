@@ -10,6 +10,7 @@ class Logout extends Component {
     render() {
         var _this = this;
         _this.setState({ user : null });
+        AsyncStorage.clear();
         return(
         _this.props.navigation.navigate('Login')
     )
