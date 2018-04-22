@@ -37,7 +37,7 @@ export default class Signup extends  Component {
       alert("Please fill all inputs")
       return;
     }
-    if(userPassword<6)
+    if(userPassword.length<6)
     {
       alert("Please enter at least 6 characters")
       return;

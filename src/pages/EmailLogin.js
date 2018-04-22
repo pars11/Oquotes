@@ -7,11 +7,19 @@ import {
   TouchableOpacity,
   TextInput
 } from 'react-native';
-
+import {FBLogin, FBLoginManager} from 'react-native-facebook-login';
 import Logo from '../common/Logo';
+import FBLoginView from '../common/FBLoginView';
+import PropTypes from 'prop-types';
 export default class Login extends  Component {
         constructor(props) {
             super(props);
+
+            this.state = ({
+              email: '',
+              password: '',
+              user: null,
+            })
           }
 
     static navigationOptions = {
@@ -27,14 +35,14 @@ export default class Login extends  Component {
           alert("Please fill all inputs")
           return;
         }
-        if(userPassword<6)
+        if(userPassword.length<6)
         {
           alert("Please enter at least 6 characters")
           return;
         }
     
         else{
-          fetch('http://192.168.1.105:80/Oquotes/login.php', {
+          fetch('http://192.168.2.36:80/Oquotes/login.php', {
           method: 'post',
           header:{
             'Accept': 'application/json',
@@ -58,6 +66,9 @@ export default class Login extends  Component {
       }
     }
 	render() {
+    var _this = this;
+    var user = this.state.user;
+
 		return(
       <View style={styles.container}>
       <Logo/>
@@ -84,14 +95,39 @@ export default class Login extends  Component {
               </TouchableOpacity> 
               </View>
               <View>
-              <TouchableOpacity style={styles.button} onPress={()=> this.props.navigation.navigate('EmailLogin')}>
-              <Text style={styles.buttonText}>Login with Facebook</Text>
-              </TouchableOpacity> 
-              </View>
-              <View>
-              <TouchableOpacity style={styles.button} onPress={()=> this.props.navigation.navigate('EmailLogin')}>
-              <Text style={styles.buttonText}>Login with Twitter</Text>
-              </TouchableOpacity> 
+              <FBLogin
+                buttonView={<FBLoginView />}
+                ref={(fbLogin) => { this.fbLogin = fbLogin }}
+                permissions={["email","user_friends"]}
+                loginBehavior={FBLoginManager.LoginBehaviors.Native}
+                onLogin={function(data){
+                  alert("Logged in!");
+                  console.log(data);
+                  _this.setState({ user : data.credentials });
+                  alert(_this.state.user.userId)
+                }}
+                onLogout={function(){
+                  console.log("Logged out.");
+                  _this.setState({ user : null });
+                }}
+                onLoginFound={function(data){
+                  console.log("Existing login found.");
+                  console.log(data);
+                  _this.setState({ user : data.credentials });
+                }}
+                onLoginNotFound={function(){
+                  _this.setState({ user : null });
+                }}
+                onError={function(data){
+                  console.log("ERROR");
+                }}
+                onCancel={function(){
+                  console.log("User cancelled.");
+                }}
+                onPermissionsMissing={function(data){
+                  console.log("Check permissions!");
+                }}
+              />
               </View>
               <View style={styles.signupTextCont}>
 					<Text style={styles.signupText}>Don't have an account yet?</Text>
