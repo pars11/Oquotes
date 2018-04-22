@@ -3,9 +3,9 @@ import {View,Text,StyleSheet,ScrollView,Image} from "react-native";
 import { Container, Content, Icon, Header, Body } from 'native-base'
 import { DrawerNavigator, StackNavigator, DrawerItems, SafeAreaView } from 'react-navigation'
 import HomeScreen from "./src/pages/HomeScreen";
-import LoginScreen from "./src/pages/EmailLogin";
+import LoginScreen from "./src/pages/Login";
 import SignupScreen from "./src/pages/Signup";
-
+import LogoutScreen from "./src/pages/Logout";
 export default class App extends Component {
 
   constructor(props){
@@ -46,6 +46,9 @@ const MyApp = DrawerNavigator({
   },
   Home: {
     screen: HomeScreen
+  },
+  Logout: {
+    screen: LogoutScreen
   }
 },
   {
