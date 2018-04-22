@@ -27,6 +27,9 @@ class HomeScreen extends Component {
         this.state = {
           cards: cards,
           outOfCards: false
+          // MAILLE GIRIS DATA 
+          //this.props.navigation.state.params.user.id
+          //login typelar this.props.navigation.state.params.user.loginType
         }
       }
     

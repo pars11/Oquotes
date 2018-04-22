@@ -25,7 +25,7 @@ export default class Login extends  Component {
     static navigationOptions = {
          drawerLabel: () => null
     }
-    onPress = (email,password) => {
+    onPress = (email,password,_this) => {
       const userEmail = this.state.email;
       const userPassword = this.state.password;
     
@@ -56,7 +56,17 @@ export default class Login extends  Component {
         })
         .then((response) => response.json())
           .then((responseJson) =>{
-            alert(responseJson);
+            
+            if(responseJson =="Try Again" || responseJson =="Wrong Details")
+            {
+              alert(responseJson);
+            }
+            else
+          {
+            responseJson.loginType =  "email"
+            _this.props.navigation.navigate('Home', { user: responseJson })
+          }
+           
           })
       }
     }
@@ -90,7 +100,7 @@ export default class Login extends  Component {
               ref={(input) => this.password = input}
               />  
       <View>
-              <TouchableOpacity style={styles.button} onPress={()=> this.onPress(this.state.email,this.state.password)}>
+              <TouchableOpacity style={styles.button} onPress={()=> this.onPress(this.state.email,this.state.password,_this)}>
               <Text style={styles.buttonText}>Login</Text>
               </TouchableOpacity> 
               </View>
@@ -104,8 +114,8 @@ export default class Login extends  Component {
                   console.log("Logged in!");
                   console.log(data);
                   _this.setState({ user : data.credentials });
-                  //alert(_this.state.user.userId)
-                  _this.props.navigation.navigate('Home')
+                  _this.state.user.loginType = "facebook";
+                  _this.props.navigation.navigate('Home', { user: _this.state.user })
                 }}
                 onLogout={function(){
                   console.log("Logged out.");

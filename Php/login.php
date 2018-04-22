@@ -22,8 +22,9 @@ $pass ="";
 		if($result->num_rows==0){
 			echo json_encode('Wrong Details');				
 		}
-		else{
-		echo json_encode('ok');				
+		else{		
+			$row = $result->fetch_assoc();
+			echo json_encode($row);
 		}
 	}	
 	else{
