@@ -24,11 +24,9 @@ export default class App extends Component {
 const CustomDrawerContentComponent = (props) => (
   <Container>
     <Header style={styles.drawerHeader}>
-      <Body>
         <Image
           style={styles.drawerImage}
-          source={require('./src/assets/images/logo.png')} />
-      </Body>
+          source={require('./src/assets/images/logo2.png')} />
     </Header>
     <Content>
       <DrawerItems {...props} />
@@ -68,13 +66,12 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   drawerHeader: {
-    height: 200,
+    height: 150,
     backgroundColor: '#455a64'
   },
   drawerImage: {
     height: 150,
     width: 150,
-    borderRadius: 75
   }
 
 })

@@ -101,10 +101,11 @@ export default class Login extends  Component {
                 permissions={["email","user_friends"]}
                 loginBehavior={FBLoginManager.LoginBehaviors.Native}
                 onLogin={function(data){
-                  alert("Logged in!");
+                  console.log("Logged in!");
                   console.log(data);
                   _this.setState({ user : data.credentials });
-                  alert(_this.state.user.userId)
+                  //alert(_this.state.user.userId)
+                  _this.props.navigation.navigate('Home')
                 }}
                 onLogout={function(){
                   console.log("Logged out.");
