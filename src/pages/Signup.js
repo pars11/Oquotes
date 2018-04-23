@@ -27,24 +27,31 @@ export default class Signup extends  Component {
       drawerLabel: () => null
  }
 
- onPress = (email,password) => {
+
+
+ onPress = (email,password,_this) => {
   const userEmail = this.state.email;
   const userPassword = this.state.password;
-
+  var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
   try{
     if(userEmail == "" && userPassword == "")
     {
       alert("Please fill all inputs")
       return;
     }
+    if (!filter.test(userEmail)) {
+      alert('Please provide a valid email address');
+      this.email.focus;
+      return;
+   }
     if(userPassword.length<6)
     {
-      alert("Please enter at least 6 characters")
+      alert("Password: Please enter at least 6 characters")
       return;
     }
 
     else{
-      fetch('http://192.168.1.105:80/Oquotes/register.php', {
+      fetch('http://192.168.2.36:80/Oquotes/register.php', {
 			method: 'post',
 			header:{
 				'Accept': 'application/json',
@@ -58,6 +65,10 @@ export default class Signup extends  Component {
 		})
 		.then((response) => response.json())
 			.then((responseJson) =>{
+        _this.email.clear();
+        _this.password.clear();
+        this.state.email = ""
+        this.state.password = ""
 				alert(responseJson);
 			})
   }
@@ -69,6 +80,7 @@ export default class Signup extends  Component {
 }
 
 	render() {
+    var _this = this;
 		return(
       <View style={styles.container}>
       <Logo/>
@@ -80,6 +92,7 @@ export default class Signup extends  Component {
               keyboardType="email-address"
               onChangeText={(email) => this.setState ({ email })}
               onSubmitEditing={()=> this.password.focus()}
+              ref={(input) => this.email = input}
               />
           <TextInput style={styles.inputBox} 
               underlineColorAndroid='rgba(0,0,0,0)' 
@@ -90,7 +103,7 @@ export default class Signup extends  Component {
               ref={(input) => this.password = input}
               />  
       <View>
-              <TouchableOpacity style={styles.button} onPress={()=> this.onPress(this.state.email,this.state.password)}>
+              <TouchableOpacity style={styles.button} onPress={()=> this.onPress(this.state.email,this.state.password,_this)}>
               <Text style={styles.buttonText}>Register</Text>
               </TouchableOpacity> 
               </View>

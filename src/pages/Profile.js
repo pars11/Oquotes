@@ -14,7 +14,7 @@ class Profile extends Component {
           })
      }
 
-     async componentWillMount() {
+     async componentDidMount() {
         const userGet = await AsyncStorage.getItem('user');
         if (userGet) {
             _user = JSON.parse(userGet)
