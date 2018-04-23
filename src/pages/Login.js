@@ -29,18 +29,23 @@ export default class Login extends  Component {
     onPress = (email,password,_this) => {
       const userEmail = this.state.email;
       const userPassword = this.state.password;
-    
+      var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
       try{
         if(userEmail == "" && userPassword == "")
-        {
-          alert("Please fill all inputs")
-          return;
-        }
-        if(userPassword.length<6)
-        {
-          alert("Please enter at least 6 characters")
-          return;
-        }
+    {
+      alert("Please fill all inputs")
+      return;
+    }
+    if (!filter.test(userEmail)) {
+      alert('Please provide a valid email address');
+      this.email.focus;
+      return;
+   }
+    if(userPassword.length<6)
+    {
+      alert("Password: Please enter at least 6 characters")
+      return;
+    }
     
         else{
           fetch('http://192.168.2.36:80/Oquotes/login.php', {
