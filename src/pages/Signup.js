@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 
 import Logo from '../common/Logo';
-
+import AwesomeAlert from 'react-native-awesome-alerts';
 import {Actions} from 'react-native-router-flux';
 
 export default class Signup extends  Component {
@@ -18,7 +18,9 @@ export default class Signup extends  Component {
 
         this.state = ({
           email: '',
-          password: ''
+          password: '',
+          showAlert: false,
+          AlertMessage:''
         })
         
       }
@@ -27,7 +29,18 @@ export default class Signup extends  Component {
       drawerLabel: () => null
  }
 
+ showAlert = (AlertMessage) => {
+  this.setState({
+    showAlert: true,
+    AlertMessage:AlertMessage
+  });
+};
 
+hideAlert = () => {
+  this.setState({
+    showAlert: false
+  });
+};
 
  onPress = (email,password,_this) => {
   const userEmail = this.state.email;
@@ -36,22 +49,22 @@ export default class Signup extends  Component {
   try{
     if(userEmail == "" && userPassword == "")
     {
-      alert("Please fill all inputs")
+      this.showAlert("Please fill all inputs")
       return;
     }
     if (!filter.test(userEmail)) {
-      alert('Please provide a valid email address');
+      this.showAlert("Please provide a valid email address")
       this.email.focus;
       return;
    }
     if(userPassword.length<6)
     {
-      alert("Password: Please enter at least 6 characters")
+      this.showAlert("Password: Please enter at least 6 characters")
       return;
     }
 
     else{
-      fetch('http://192.168.2.36:80/Oquotes/register.php', {
+      fetch('http://192.168.74.1:80/Oquotes/register.php', {
 			method: 'post',
 			header:{
 				'Accept': 'application/json',
@@ -69,18 +82,20 @@ export default class Signup extends  Component {
         _this.password.clear();
         this.state.email = ""
         this.state.password = ""
-				alert(responseJson);
+        this.showAlert(responseJson);
 			})
   }
 }
   catch(error){
     var errorMessage = error;
-      alert(errorMessage)
+    this.showAlert(errorMessage);
   }
 }
 
 	render() {
     var _this = this;
+    const {showAlert} = this.state;
+    var AlertMessage = this.state.AlertMessage;
 		return(
       <View style={styles.container}>
       <Logo/>
@@ -111,6 +126,24 @@ export default class Signup extends  Component {
 					<Text style={styles.signupText}>Already have an account?</Text>
 					<TouchableOpacity onPress={()=> this.props.navigation.navigate('Login')}><Text style={styles.signupButton}> Sign in</Text></TouchableOpacity>
 				</View>
+        <AwesomeAlert
+          show={showAlert}
+          showProgress={false}
+          title="Oquotes"
+          message={AlertMessage}
+          closeOnTouchOutside={true}
+          closeOnHardwareBackPress={false}
+          showCancelButton={false}
+          showConfirmButton={true}
+          confirmText="OK"
+          confirmButtonColor="#455a64"
+          onCancelPressed={() => {
+            this.hideAlert();
+          }}
+          onConfirmPressed={() => {
+            this.hideAlert();
+          }}
+        />
     </View>	
 			)
 	}

@@ -48,22 +48,22 @@ export default class Login extends  Component {
       try{
         if(userEmail == "" && userPassword == "")
     {
-      alert("Please fill all inputs")
+      this.showAlert("Please fill all inputs")
       return;
     }
     if (!filter.test(userEmail)) {
-      alert('Please provide a valid email address');
-      this.email.focus;
+      this.showAlert("Please provide a valid email address")
+      email.focus;
       return;
    }
     if(userPassword.length<6)
     {
-      alert("Password: Please enter at least 6 characters")
+      this.showAlert("Password: Please enter at least 6 characters")
       return;
     }
     
         else{
-          fetch('http://192.168.2.36:80/Oquotes/login.php', {
+          fetch('http://192.168.74.1:80/Oquotes/login.php', {
           method: 'post',
           header:{
             'Accept': 'application/json',
@@ -80,7 +80,7 @@ export default class Login extends  Component {
             
             if(responseJson =="Try Again" || responseJson =="Wrong Details")
             {
-              alert(responseJson);
+              this.showAlert(responseJson)
             }
             else
           {
@@ -95,7 +95,7 @@ export default class Login extends  Component {
     }
       catch(error){
         var errorMessage = error;
-          alert(errorMessage)
+          this.showAlert(errorMessage)
       }
     }
 	render() {
