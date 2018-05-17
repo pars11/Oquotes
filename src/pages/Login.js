@@ -12,6 +12,7 @@ import {FBLogin, FBLoginManager} from 'react-native-facebook-login';
 import Logo from '../common/Logo';
 import FBLoginView from '../common/FBLoginView';
 import PropTypes from 'prop-types';
+import AwesomeAlert from 'react-native-awesome-alerts';
 export default class Login extends  Component {
         constructor(props) {
             super(props);
@@ -20,12 +21,26 @@ export default class Login extends  Component {
               email: '',
               password: '',
               user: null,
+              showAlert: false,
+              AlertMessage:''
             })
           }
 
     static navigationOptions = {
          drawerLabel: () => null
     }
+    showAlert = (AlertMessage) => {
+      this.setState({
+        showAlert: true,
+        AlertMessage:AlertMessage
+      });
+    };
+  
+    hideAlert = () => {
+      this.setState({
+        showAlert: false
+      });
+    };
     onPress = (email,password,_this) => {
       const userEmail = this.state.email;
       const userPassword = this.state.password;
@@ -86,7 +101,8 @@ export default class Login extends  Component {
 	render() {
     var _this = this;
     var user = this.state.user;
-
+    const {showAlert} = this.state;
+    var AlertMessage = this.state.AlertMessage;
 		return(
       <View style={styles.container}>
       <Logo/>
@@ -152,8 +168,26 @@ export default class Login extends  Component {
               </View>
               <View style={styles.signupTextCont}>
 					<Text style={styles.signupText}>Don't have an account yet?</Text>
-					<TouchableOpacity onPress={()=> this.props.navigation.navigate('Signup')}><Text style={styles.signupButton}> Sign Up</Text></TouchableOpacity>
+          <TouchableOpacity onPress={()=> this.props.navigation.navigate('Signup')}><Text style={styles.signupButton}> Sign Up</Text></TouchableOpacity>
 				</View>
+        <AwesomeAlert
+          show={showAlert}
+          showProgress={false}
+          title="Oquotes"
+          message={AlertMessage}
+          closeOnTouchOutside={true}
+          closeOnHardwareBackPress={false}
+          showCancelButton={false}
+          showConfirmButton={true}
+          confirmText="OK"
+          confirmButtonColor="#455a64"
+          onCancelPressed={() => {
+            this.hideAlert();
+          }}
+          onConfirmPressed={() => {
+            this.hideAlert();
+          }}
+        />
     </View>	
 			)
 	}
